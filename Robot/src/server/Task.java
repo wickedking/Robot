@@ -1,5 +1,6 @@
 package server;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -50,9 +51,8 @@ public class Task {
 	 * @return A boolean if successful.
 	 */
 	public boolean sortTaskLocation(){
-		//TODO
-		//Sort the task based on location alone
-		return false;
+		Collections.sort(tasks, new LocationComparator());
+		return true;
 	}
 	
 	public boolean sortTaskPriority(){

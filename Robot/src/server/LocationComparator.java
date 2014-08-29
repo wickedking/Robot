@@ -2,16 +2,16 @@ package server;
 
 import java.util.Comparator;
 
-public class LocationComparator implements Comparator<Location>{
+public class LocationComparator implements Comparator<Case>{
 
 	@Override
-	public int compare(Location first, Location second) {
-		if(first.my_x < second.my_x){
+	public int compare(Case first, Case second) {
+		if(first.my_location.my_x < second.my_location.my_x){
 			return 1;
-		} else if (first.my_x > second.my_x){
+		} else if (first.my_location.my_x > second.my_location.my_x){
 			return -1;
 		} else {
-			return first.my_y - second.my_y;
+			return first.my_location.my_y - second.my_location.my_y;
 		}
 	}
 
