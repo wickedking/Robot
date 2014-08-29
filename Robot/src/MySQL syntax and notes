@@ -1,0 +1,51 @@
+CREATE DATABASE warehouse;
+USE warehouse;
+
+create table CaseInfo(
+CaseNumber char(30) NOT NULL,
+Height Integer NOT NULL,
+Length Integer NOT NULL,
+Width Integer NOT NULL,
+CONSTRAINT CaseNumber_PK PRIMARY KEY (CaseNumber));
+
+create table location(
+CaseNumber char(30) NOT NULL,
+X Integer NOT NULL,
+Y Integer NOT NULL,
+Aisle Integer NOT NULL,
+CONSTRAINT CaseNumber_PK PRIMARY KEY (CaseNumber));
+
+create table status(
+CaseNumber char(30) NOT NULL,
+PullStatus Integer NOT NULL,
+CONSTRAINT CaseNumber_PK PRIMARY KEY (CaseNumber));
+
+
+INSERT INTO CaseInfo VALUES ( 'box1', 10, 11, 12);
+INSERT INTO CaseInfo VALUES ( 'box2', 12, 11, 10);
+INSERT INTO CaseInfo VALUES ( 'box3', 11, 10, 12);
+
+INSERT INTO location VALUES ( 'box1', -1, -1 , -1);
+INSERT INTO location VALUES ( 'box2', -1, -1 , -1);
+INSERT INTO location VALUES ( 'box3', -1, -1 , -1);
+
+INSERT INTO status VALUES ('box1', 0);
+INSERT INTO status VALUES ('box2', 0);
+INSERT INTO status VALUES ('box3', 0);
+
+###########################
+Expand range of inital values into database to test out. 
+Actually create database on a computer to test. 
+Finish code to connect database. 
+
+
+###########################
+CaseInfo will have: case#|Height|Length|Width
+Location will have: case#|localX|localY|aisle
+status will have: case#|pull status
+
+pull Status:
+0 to be put away
+1 in location
+2 to be pulled
+3 has been pulled
