@@ -30,8 +30,8 @@ public class Task {
 	 * @return A boolean if successful.
 	 */
 	public boolean addCase(final Case the_case){
-		//TODO
-		return false;
+		tasks.add(the_case);
+		return true;
 	}
 	
 	/**
@@ -41,8 +41,8 @@ public class Task {
 	 * @return A boolean if successful.
 	 */
 	public boolean addCase(final List<Case> the_list){
-		//TODO
-		return false;
+		tasks.addAll(the_list);
+		return true;
 	}
 	
 	/**
