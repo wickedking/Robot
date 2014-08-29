@@ -1,0 +1,6 @@
+Make the server either observer/observable to allows for method calling when updated.
+Need to implement a backend database, for testing purpose
+Need to implement connection to robots.
+
+Take a step back and make sure big picture is in order, arrows are going to and from 
+	correct places. 

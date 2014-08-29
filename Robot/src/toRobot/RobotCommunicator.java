@@ -17,5 +17,8 @@ public class RobotCommunicator {
 	 * For case putaway, connect to the ToDB with case number and location.
 	 * 
 	 */
+	
+	//get more cases(robot number)
+	
 
 }

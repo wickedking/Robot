@@ -17,7 +17,7 @@ public class Server {
 	private Task[] aisles;
 
 	/**
-	 * Default construtor
+	 * Default constructor
 	 * @param robot_number the number of robots currently being served by this program.
 	 */
 	public Server(final int robot_number){
@@ -38,7 +38,6 @@ public class Server {
 		}
 		return false;
 	}
-
 
 	/**
 	 * Receive case and splits it to the robots accordingly
@@ -83,7 +82,6 @@ public class Server {
 		}
 		return boxes;
 	}
-
 
 	/**
 	 * Resize the aisles array and perform a movement from the old array to the new one. 
