@@ -7,8 +7,6 @@ package server;
  */
 public final class Case {
 	
-	
-	
 	/**
 	 * The case number of the case.
 	 */

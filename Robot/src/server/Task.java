@@ -46,6 +46,10 @@ public class Task {
 		return true;
 	}
 	
+	public Case getCase(){
+		return tasks.remove();
+	}
+	
 	/**
 	 * Will sort the task based on the ordering of the locations. 
 	 * @return A boolean if successful.
@@ -55,6 +59,10 @@ public class Task {
 		return true;
 	}
 	
+	/**
+	 * Unimplemented method to use an advanced sort based on a priority.
+	 * @return A boolean if successful.
+	 */
 	public boolean sortTaskPriority(){
 		//TODO
 		//Sort task first on priority and then location within priority
