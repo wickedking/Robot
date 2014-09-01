@@ -1,4 +1,4 @@
-package referenceDB;
+package database;
 /**
  * Interface between client side and data side. 
  */
@@ -8,10 +8,13 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
 import server.Case;
+import server.Location;
+import server.Units;
 
 
 /**
@@ -54,7 +57,7 @@ public class Database{
 		}
 		return me;
 	}
-	
+
 	/**
 	 * Creates a connection to the database.
 	 * @return
@@ -78,26 +81,46 @@ public class Database{
 		return conn;
 	}
 	
+	
+
 	public List<Case> getPullCases(){
 		PreparedStatement prestate;
+		List<Case> caseList = new ArrayList<Case>();
 		try {
 			prestate = my_conn.prepareStatement("SELECT * FROM CaseInfo WHERE CaseNumber IN (SELECT CaseNumber FROM status WHERE PullStatus = 2);");
 			ResultSet rs = prestate.executeQuery();
+			prestate = my_conn.prepareStatement("SELECT * FROM location WHERE CaseNumber IN (SELECT CaseNumber FROM status WHERE PullStatus = 2);");
+			ResultSet locationRS = prestate.executeQuery();
 			do {
 				rs.next();
+				locationRS.next();
 				String caseNumber = rs.getString(1);
 				int height = rs.getInt(2);
 				int length = rs.getInt(3);
 				int width = rs.getInt(4);
+				int locationX = locationRS.getInt(2);
+				int locationY = locationRS.getInt(3);
+				int aisle = locationRS.getInt(4);
 				
-				
+				Location locate = new Location(locationX, locationY, aisle);
+				Case the_case = new Case(caseNumber, height, length, width, locate, Units.Centimeters);
+				caseList.add(the_case);
 			} while(!rs.isLast());
 		} catch(SQLException e){
 			e.printStackTrace(); //should log not throw...oh well for now
 		}
-		
-		return null;
+		return caseList;
+	}
+	
+	public boolean updateLocation(String the_case_number, Location the_location){
+		//TODO
+		return false;
+	}
+	
+	public boolean updatePullStatus(String the_case_number, int the_pull_status){
+		//TODO
+		return false;
 	}
 
-	
+
 }

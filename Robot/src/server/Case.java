@@ -10,7 +10,7 @@ public final class Case {
 	/**
 	 * The case number of the case.
 	 */
-	public final int my_case_number;
+	public final String my_case_number;
 	
 	/**
 	 * The height of the case. 
@@ -37,7 +37,7 @@ public final class Case {
 	 */
 	public final Units my_unit;
 	
-	public Case(final int the_case_number, final int the_height, final int the_width,
+	public Case(final String the_case_number, final int the_height, final int the_width,
 			final int the_length, final Location the_location, final Units the_unit){
 		
 		my_case_number = the_case_number;

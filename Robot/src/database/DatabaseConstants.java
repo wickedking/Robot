@@ -1,4 +1,4 @@
-package referenceDB;
+package database;
 /**
  * Constants such as table names and headers.
  */
