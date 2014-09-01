@@ -45,7 +45,14 @@ public class Server {
 	private Server(){
 		my_robot_number = ROBOT_QUANTITY;
 		aisles = new Task[my_robot_number];
+		setupTasks();
 		my_db = Database.getInstance();
+	}
+	
+	private void setupTasks(){
+		for(int i = 0; i < my_robot_number; i++){
+			aisles[i] = new Task();
+		}
 	}
 
 	/**
