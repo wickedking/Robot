@@ -47,5 +47,12 @@ public final class Case {
 		my_location = the_location;
 		my_unit = the_unit;
 	}
+	
+	@Override
+	public String toString(){
+		StringBuilder sb = new StringBuilder();
+		sb.append(my_case_number);		
+		return sb.toString();
+	}
 
 }

@@ -12,8 +12,6 @@ import database.Database;
  */
 public class RobotCommunicator {
 
-	private static final int PULLED_STATUS = 3;
-
 	/**
 	 * Holds the case number of the last case sent to the robot.
 	 */

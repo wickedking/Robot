@@ -133,6 +133,16 @@ public class Server {
 	public void wave(){
 		splitCases(my_db.getPullCases());
 	}
+	
+	@Override
+	public String toString(){
+		StringBuilder sb = new StringBuilder();
+		for(int i = 0; i < aisles.length; i++){
+			sb.append(aisles[i].toString());
+			sb.append("\n");
+		}
+		return sb.toString();
+	}
 
 
 

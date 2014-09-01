@@ -79,6 +79,17 @@ public class Task {
 		//Sort task first on priority and then location within priority
 		return false;
 	}
+	
+	@Override
+	public String toString(){
+		StringBuilder sb = new StringBuilder();
+		sb.append("Task: \n");
+		for(Case box : tasks){
+			sb.append(box.toString());
+			sb.append("\n");
+		}
+		return sb.toString();
+	}
 
 
 
