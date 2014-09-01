@@ -1,6 +1,5 @@
 package server;
 
-import java.sql.Connection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -26,6 +25,8 @@ public class Server {
 	 * The only instance of this server.
 	 */
 	private static Server me;
+	
+	private static Database my_db;
 
 	/**
 	 * @return The only instance of this class.
@@ -44,6 +45,7 @@ public class Server {
 	private Server(){
 		my_robot_number = ROBOT_QUANTITY;
 		aisles = new Task[my_robot_number];
+		my_db = Database.getInstance();
 	}
 
 	/**
@@ -60,27 +62,30 @@ public class Server {
 		return false;
 	}
 
-	/**
-	 * Receive case and splits it to the robots accordingly
-	 * @param the_case The case to be added
-	 * @return A boolean if successful
-	 */
-	public boolean splitCase(final Case the_case){
-		int aisle = the_case.my_location.my_aisle;
-		if (aisle > my_robot_number){
-			return false;
-		}
-		aisles[aisle].addCase(the_case);
-		return true;
-	}
+//	/**
+//	 * Receive case and splits it to the robots accordingly
+//	 * @param the_case The case to be added
+//	 * @return A boolean if successful
+//	 */
+//	private boolean splitCase(final Case the_case){
+//		int aisle = the_case.my_location.my_aisle;
+//		if (aisle > my_robot_number){
+//			return false;
+//		}
+//		aisles[aisle].addCase(the_case);
+//		return true;
+//	}
 
 	/**
 	 * Splits a list of cases accordingly
 	 * @param the_cases
 	 * @return a boolean if every case was split correctly
 	 */
-	public boolean splitCase(final List<Case> the_cases){
+	private boolean splitCases(final List<Case> the_cases){
 		//TODO refactor to better represent an error for bad case aisles.
+		if(the_cases.size() < 1){
+			return false;
+		}
 		int aisle;
 		boolean check = true;
 		for(Case box : the_cases){
@@ -111,6 +116,13 @@ public class Server {
 	private boolean resizeAisles(){
 		//TODO
 		return false;
+	}
+	
+	/**
+	 * Grabs new cases from the database to be pulled and splits them to the different aisles. 
+	 */
+	public void wave(){
+		splitCases(my_db.getPullCases());
 	}
 
 
