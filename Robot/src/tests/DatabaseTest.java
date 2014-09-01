@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class DBConnectorTest {
+public class DatabaseTest {
 
 	@Test
 	public void test() {

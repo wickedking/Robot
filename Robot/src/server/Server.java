@@ -1,27 +1,48 @@
 package server;
 
+import java.sql.Connection;
 import java.util.LinkedList;
 import java.util.List;
 
+import database.Database;
+
 /**
  * Main class that controls the information between the robots and the DB
+ * Class is a singleton.
  * @author Cody
  *
  */
 public class Server {
+	
+	private static final int ROBOT_QUANTITY = 5;
 
 	private static final int LIST_QUANTITY = 5;
 
 	private int my_robot_number;
 
 	private Task[] aisles;
+	
+	/**
+	 * The only instance of this server.
+	 */
+	private static Server me;
+
+	/**
+	 * @return The only instance of this class.
+	 */
+	public static Server getInstance(){
+		if (me == null){
+			me = new Server();
+		}
+		return me;
+	}
 
 	/**
 	 * Default constructor
 	 * @param robot_number the number of robots currently being served by this program.
 	 */
-	public Server(final int robot_number){
-		my_robot_number = robot_number;
+	private Server(){
+		my_robot_number = ROBOT_QUANTITY;
 		aisles = new Task[my_robot_number];
 	}
 
