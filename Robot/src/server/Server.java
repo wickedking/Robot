@@ -108,6 +108,15 @@ public class Server {
 		}
 		return boxes;
 	}
+	
+	/**
+	 * Returns the next case in the task. Can be null.
+	 * @param the_aisle The aisle of the task to be polled. 
+	 * @return The next case in the task. Can be null.
+	 */
+	public Case getCase(final int the_aisle){
+		return aisles[the_aisle].getCase();
+	}
 
 	/**
 	 * Resize the aisles array and perform a movement from the old array to the new one. 

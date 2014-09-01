@@ -24,14 +24,18 @@ CONSTRAINT CaseNumber_PK PRIMARY KEY (CaseNumber));
 INSERT INTO CaseInfo VALUES ( 'box1', 10, 11, 12);
 INSERT INTO CaseInfo VALUES ( 'box2', 12, 11, 10);
 INSERT INTO CaseInfo VALUES ( 'box3', 11, 10, 12);
+INSERT INTO CaseInfo VALUES ( 'box4', 5, 5, 5);
+
 
 INSERT INTO location VALUES ( 'box1', -1, -1 , -1);
 INSERT INTO location VALUES ( 'box2', -1, -1 , -1);
 INSERT INTO location VALUES ( 'box3', -1, -1 , -1);
+INSERT INTO location VALUES ( 'box4', 1, 2 , 3);
 
 INSERT INTO status VALUES ('box1', 0);
 INSERT INTO status VALUES ('box2', 0);
 INSERT INTO status VALUES ('box3', 0);
+INSERT INTO status VALUES ('box4', 2);
 
 ###########################
 Expand range of inital values into database to test out. 
