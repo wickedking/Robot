@@ -20,16 +20,14 @@ import server.Units;
 /**
  * Provides a set of methods for the client side to retrieve information out of the database.
  * 
+ * Note: Class was modified and change by Cody Shafer. Original author was Mike Westbrook.
+ * Was used with permission. The price was a beer. 
+ * 
  * @author Mike Westbrook
  * @author Cody Shafer
  * @version 2.2
  */
 public class Database{
-
-	/**
-	 * Maximum number of papers that can be assigned to a reviewer or subprogram chair.
-	 */
-	public static final int MAXPAPERS = 4;
 
 	/**
 	 * The only instance of this database.
@@ -82,7 +80,10 @@ public class Database{
 	}
 	
 	
-
+	/**
+	 * Get a list of cases that are currently in pull status.
+	 * @return The list of cases to be pulled.
+	 */
 	public List<Case> getPullCases(){
 		PreparedStatement prestate;
 		List<Case> caseList = new ArrayList<Case>();
@@ -112,14 +113,51 @@ public class Database{
 		return caseList;
 	}
 	
+	/**
+	 * Updates the new location of a case in the DB.
+	 * @param the_case_number The case number of the case.
+	 * @param the_location The new Location of the case.
+	 * @return A boolean if successful or not.
+	 */
 	public boolean updateLocation(String the_case_number, Location the_location){
-		//TODO
-		return false;
+		PreparedStatement prestate;
+		boolean check;
+		try {
+			prestate = my_conn.prepareStatement("UPDATE 'location' SET 'X'=[" + the_location.my_x +"], 'Y'=[" 
+		+ the_location.my_x + "], 'Aisle'=[" + the_location.my_aisle 
+		+ "] WHERE CaseNumber = " + the_case_number +";");
+			prestate.execute();
+			check = true;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			check = false;
+			e.printStackTrace();
+		}
+		return check;
 	}
 	
+	/**
+	 * Updates the status of the case in the DB.
+	 * @param the_case_number The case number of the case.
+	 * @param the_pull_status The new pulled status of the case.
+	 * @return A boolean if successful or not.
+	 */
 	public boolean updatePullStatus(String the_case_number, int the_pull_status){
-		//TODO
-		return false;
+		PreparedStatement prestate;
+		boolean check;
+		try {
+			prestate = my_conn.prepareStatement("UPDATE 'status' SET 'PullStatus' = [" + the_pull_status + "] WHERE CaseNumber = " + the_case_number +";");
+			prestate.execute();
+			check = true;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			check = false;
+			e.printStackTrace();
+		}
+		return check;
+		
 	}
 
 

@@ -4,6 +4,9 @@ package database;
  */
 
 /**
+ * Constants for the database class. Was created by Mike Westbrook, and modified by Cody Shafer.
+ * The price for this was a beer.
+ * 
  * @author Mike Westbrook
  * @author Cody Shafer
  * @version 2.1
@@ -18,8 +21,6 @@ public class DatabaseConstants
 	protected static final String LOCATION = "location";
 	
 	protected static final String STATUS = "status";
-
-
 
 	/**
 	 * User name for the database.
