@@ -1,3 +1,4 @@
+import server.Case;
 import server.Server;
 import database.Database;
 
@@ -10,8 +11,9 @@ public class Main {
 		Server server = Server.getInstance();
 		server.wave();
 		System.out.println(server.toString());
-		//System.out.println(server.getCase(3));
-		//System.out.println(server.toString());
+		Case box = server.getCase(3);
+		System.out.println(box);
+
 		
 	}
 }

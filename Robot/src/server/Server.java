@@ -69,19 +69,7 @@ public class Server {
 		return false;
 	}
 
-//	/**
-//	 * Receive case and splits it to the robots accordingly
-//	 * @param the_case The case to be added
-//	 * @return A boolean if successful
-//	 */
-//	private boolean splitCase(final Case the_case){
-//		int aisle = the_case.my_location.my_aisle;
-//		if (aisle > my_robot_number){
-//			return false;
-//		}
-//		aisles[aisle].addCase(the_case);
-//		return true;
-//	}
+
 
 	/**
 	 * Splits a list of cases accordingly

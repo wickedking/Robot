@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import constants.DBC;
 import server.Case;
 import server.Location;
 import server.Units;
@@ -88,10 +89,12 @@ public class Database{
 		PreparedStatement prestate;
 		List<Case> caseList = new ArrayList<Case>();
 		try {
-			prestate = my_conn.prepareStatement("SELECT * FROM CaseInfo WHERE CaseNumber IN (SELECT CaseNumber FROM status WHERE PullStatus = 2);");
+			prestate = my_conn.prepareStatement("SELECT * FROM CaseInfo WHERE CaseNumber IN (SELECT CaseNumber FROM CaseStatus WHERE PullStatus = 2);");
 			ResultSet rs = prestate.executeQuery();
-			prestate = my_conn.prepareStatement("SELECT * FROM location WHERE CaseNumber IN (SELECT CaseNumber FROM status WHERE PullStatus = 2);");
+			prestate = my_conn.prepareStatement("SELECT * FROM location WHERE CaseNumber IN (SELECT CaseNumber FROM CaseStatus WHERE PullStatus = 2);");
 			ResultSet locationRS = prestate.executeQuery();
+			prestate = my_conn.prepareStatement("UPDATE CaseStatus SET PullStatus = " + DBC.WAVED + " WHERE PullStatus = 2;");
+			prestate.execute();
 			do {
 				rs.next();
 				locationRS.next();
@@ -147,7 +150,7 @@ public class Database{
 		PreparedStatement prestate;
 		boolean check;
 		try {
-			prestate = my_conn.prepareStatement("UPDATE 'status' SET 'PullStatus' = [" + the_pull_status + "] WHERE CaseNumber = " + the_case_number +";");
+			prestate = my_conn.prepareStatement("UPDATE 'CaseStatus' SET 'PullStatus' = [" + the_pull_status + "] WHERE CaseNumber = " + the_case_number +";");
 			prestate.execute();
 			check = true;
 			

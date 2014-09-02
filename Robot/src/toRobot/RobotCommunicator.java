@@ -44,8 +44,11 @@ public class RobotCommunicator {
 	 * @return The next case to be pulled. 
 	 */
 	public Case getCase(final int the_aisle) {
-		my_db.updatePullStatus(my_aisle_cases[the_aisle].my_case_number, DBC.IN_LOCATION);
-		return my_server.getCase(the_aisle);
+		//TODO handle initial start up with empty case in aisle
+		my_db.updatePullStatus(my_aisle_cases[the_aisle].my_case_number, DBC.BEEN_PULLED);
+		Case box = my_server.getCase(the_aisle);
+		my_aisle_cases[the_aisle] = box;
+		return box;
 	}
 
 	//TODO
