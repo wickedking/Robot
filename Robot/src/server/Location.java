@@ -40,8 +40,7 @@ public final class Location {
 	 * @return The new Location with the changed X value.
 	 */
 	public Location changeX(final int the_x){
-		//TODO
-		return null;
+		return new Location(the_x, my_y, my_aisle);
 	}
 	
 	/**
@@ -50,8 +49,7 @@ public final class Location {
 	 * @return The new Location with the changed Y value.
 	 */
 	public Location changeY(final int the_y){
-		//TODO
-		return null;
+		return new Location(my_x, the_y, my_aisle);
 	}
 	
 	/**
@@ -60,8 +58,7 @@ public final class Location {
 	 * @return The new location with the Aisle changed. 
 	 */
 	public Location changeAisle(final int the_aisle){
-		//TODO
-		return null;
+		return new Location(my_x, my_y, the_aisle);
 	}
 	
 	/**
