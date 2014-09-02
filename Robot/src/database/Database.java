@@ -153,7 +153,7 @@ public class Database{
 			
 		} catch (SQLException e) {
 			check = false;
-			log.log(Level.SEVERE, egetMessage());
+			log.log(Level.SEVERE, e.getMessage());
 		}
 		return check;
 	}
