@@ -3,6 +3,9 @@ package database;
  * Interface between client side and data side. 
  */
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -12,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import logging.Logger;
 import constants.DBC;
 import server.Case;
 import server.Location;
@@ -39,7 +43,7 @@ public class Database{
 	 * Actual connection to the database.
 	 */
 	private final Connection my_conn;
-
+	
 	/**
 	 * Cannot be directly instantiated.
 	 */
@@ -62,6 +66,8 @@ public class Database{
 	 * @return
 	 */
 	private static Connection getConnection() {
+		//Logger.start();
+		//Logger.log("Starting connection");
 		Connection conn = null;
 		Properties connectionProps = new Properties();
 		connectionProps.put("user", DatabaseConstants.USERNAME);
@@ -74,9 +80,10 @@ public class Database{
 								":" + DatabaseConstants.PORT + "/" + DatabaseConstants.DATABASE,
 								connectionProps);
 			} catch (SQLException e) {
-				e.printStackTrace();
+				Logger.log(e.getMessage());
 			}
 		} 
+		
 		return conn;
 	}
 	
@@ -162,6 +169,5 @@ public class Database{
 		return check;
 		
 	}
-
 
 }
