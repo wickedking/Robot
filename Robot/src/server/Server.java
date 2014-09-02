@@ -148,6 +148,7 @@ public class Server {
 			sb.append(aisles[i].toString());
 			sb.append("\n");
 		}
+		sb.append("END of SERVER\n");
 		return sb.toString();
 	}
 

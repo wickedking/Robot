@@ -10,7 +10,8 @@ public class Main {
 		Server server = Server.getInstance();
 		server.wave();
 		System.out.println(server.toString());
-		
+		//System.out.println(server.getCase(3));
+		//System.out.println(server.toString());
 		
 	}
 }
