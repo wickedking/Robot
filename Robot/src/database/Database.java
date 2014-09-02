@@ -3,9 +3,7 @@ package database;
  * Interface between client side and data side. 
  */
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -14,8 +12,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.SimpleFormatter;
 
-import logging.Logger;
 import constants.DBC;
 import server.Case;
 import server.Location;
@@ -44,10 +44,20 @@ public class Database{
 	 */
 	private final Connection my_conn;
 	
+	private static final java.util.logging.Logger log = java.util.logging.Logger.getLogger(Database.class.getName());
+	
 	/**
 	 * Cannot be directly instantiated.
 	 */
 	protected Database(){
+		try {
+			FileHandler fh = new FileHandler("db_log.log", false);
+			fh.setFormatter(new SimpleFormatter());
+			log.addHandler(fh);
+		} catch (SecurityException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		my_conn = getConnection();
 	}
 
@@ -66,8 +76,7 @@ public class Database{
 	 * @return
 	 */
 	private static Connection getConnection() {
-		//Logger.start();
-		//Logger.log("Starting connection");
+		log.log(Level.INFO, "Getting Connection");
 		Connection conn = null;
 		Properties connectionProps = new Properties();
 		connectionProps.put("user", DatabaseConstants.USERNAME);
@@ -80,10 +89,10 @@ public class Database{
 								":" + DatabaseConstants.PORT + "/" + DatabaseConstants.DATABASE,
 								connectionProps);
 			} catch (SQLException e) {
-				Logger.log(e.getMessage());
+				log.log(Level.SEVERE, e.getMessage());
 			}
 		} 
-		
+		log.log(Level.INFO, "Connection Recieved");
 		return conn;
 	}
 	
@@ -93,6 +102,7 @@ public class Database{
 	 * @return The list of cases to be pulled.
 	 */
 	public List<Case> getPullCases(){
+		log.log(Level.INFO, "Calling getPullCases");
 		PreparedStatement prestate;
 		List<Case> caseList = new ArrayList<Case>();
 		try {
@@ -101,6 +111,7 @@ public class Database{
 			prestate = my_conn.prepareStatement("SELECT * FROM location WHERE CaseNumber IN (SELECT CaseNumber FROM CaseStatus WHERE PullStatus = 2);");
 			ResultSet locationRS = prestate.executeQuery();
 			prestate = my_conn.prepareStatement("UPDATE CaseStatus SET PullStatus = " + DBC.WAVED + " WHERE PullStatus = 2;");
+			log.log(Level.INFO, "Updating PullStatus of waved cases");
 			prestate.execute();
 			do {
 				rs.next();
@@ -118,7 +129,7 @@ public class Database{
 				caseList.add(the_case);
 			} while(!rs.isLast());
 		} catch(SQLException e){
-			e.printStackTrace(); //should log not throw...oh well for now
+			log.log(Level.SEVERE, e.getMessage()); //should log not throw...oh well for now
 		}
 		return caseList;
 	}
@@ -130,6 +141,7 @@ public class Database{
 	 * @return A boolean if successful or not.
 	 */
 	public boolean updateLocation(String the_case_number, Location the_location){
+		log.log(Level.FINEST, "Calling updateLocation: " + the_case_number);
 		PreparedStatement prestate;
 		boolean check;
 		try {
@@ -140,9 +152,8 @@ public class Database{
 			check = true;
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			check = false;
-			e.printStackTrace();
+			log.log(Level.SEVERE, egetMessage());
 		}
 		return check;
 	}
@@ -154,6 +165,7 @@ public class Database{
 	 * @return A boolean if successful or not.
 	 */
 	public boolean updatePullStatus(String the_case_number, int the_pull_status){
+		log.log(Level.FINE, "Updating PullStatus for: " + the_case_number + " to : " + the_pull_status);
 		PreparedStatement prestate;
 		boolean check;
 		try {
@@ -164,7 +176,7 @@ public class Database{
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			check = false;
-			e.printStackTrace();
+			log.log(Level.SEVERE, e.getMessage());
 		}
 		return check;
 		
