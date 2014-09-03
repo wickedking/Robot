@@ -1,11 +1,10 @@
-Make the server either observer/observable to allows for method calling when updated.
-Need to implement a backend database, for testing purpose
 Need to implement connection to robots.
 
 Take a step back and make sure big picture is in order, arrows are going to and from 
 	correct places. 
 	
-NOTE:When polling the database, it is going to give back all cases to be pulled, meaning there
-	will be duplicates. Either i need a new pull status number for being pulled and already polled, or
-	add someway to elimitate duplicates in the server. Much faster in the database but might just be easier in
-	the server for now. 
+NOTE:
+*Further test the database queries. 
+*Implement more logging features.
+*Create the connection to the arduino
+*Need more queries 
