@@ -55,6 +55,7 @@ public class Database{
 			FileHandler fh = new FileHandler("db_log.log", false);
 			fh.setFormatter(new SimpleFormatter());
 			log.addHandler(fh);
+			log.setLevel(Level.FINE);
 		} catch (SecurityException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace(); //Can't log cause logger blew up. 
@@ -103,6 +104,7 @@ public class Database{
 	 * @return The list of cases to be pulled.
 	 */
 	public List<Case> getPullCases(){
+		//TODO handle case with empty result set. Current implementation does not apparently
 		log.log(Level.INFO, "Calling getPullCases");
 		PreparedStatement prestate;
 		List<Case> caseList = new ArrayList<Case>();
@@ -121,6 +123,7 @@ public class Database{
 			log.log(Level.INFO, "Updating PullStatus of waved cases");
 			prestate.execute();
 			do {
+				
 				rs.next();
 				locationRS.next();
 				String caseNumber = rs.getString(1);
@@ -137,7 +140,7 @@ public class Database{
 				caseList.add(the_case);
 			} while(!rs.isLast());
 		} catch(SQLException e){
-			log.log(Level.SEVERE, e.getMessage()); //should log not throw...oh well for now
+			log.log(Level.SEVERE, e.getMessage() + "catch block"); //should log not throw...oh well for now
 		}
 		return caseList;
 	}

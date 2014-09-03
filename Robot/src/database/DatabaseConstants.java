@@ -21,7 +21,7 @@ public class DatabaseConstants
 	
 	protected static final String LOCATION = "location";
 	
-	protected static final String STATUS = "status";
+	protected static final String STATUS = "CaseStatus";
 
 	/**
 	 * User name for the database.

@@ -54,6 +54,7 @@ public class Server {
 			FileHandler fh = new FileHandler("server_log.log", false);
 			fh.setFormatter(new SimpleFormatter());
 			log.addHandler(fh);
+			log.setLevel(Level.FINE);
 		} catch (SecurityException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace(); //Can't log cause logger blew up. 
@@ -130,7 +131,7 @@ public class Server {
 	 * @return The next case in the task. Can be null.
 	 */
 	public Case getCase(final int the_aisle){
-		log.log(Level.INFO, "getCase called for: " + the_aisle);
+		log.log(Level.INFO, "getCase called for aisle: " + the_aisle);
 		return aisles[the_aisle].getCase();
 	}
 

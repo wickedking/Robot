@@ -52,6 +52,9 @@ public class Task {
 	 * @return The next case in the task.
 	 */
 	public Case getCase(){
+		if(tasks.isEmpty()){
+			return null;
+		}
 		try {
 			Case box = tasks.removeFirst();
 			return box;

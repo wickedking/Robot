@@ -1,5 +1,10 @@
 package toRobot;
 
+import java.io.IOException;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.SimpleFormatter;
+
 import constants.DBC;
 import server.Case;
 import server.Server;
@@ -26,7 +31,36 @@ public class RobotCommunicator {
 	 * The instance for the server. 
 	 */
 	private Server my_server = Server.getInstance();
-	
+
+	private static final java.util.logging.Logger log =
+			java.util.logging.Logger.getLogger(RobotCommunicator.class.getName());
+
+	private static RobotCommunicator me;
+
+
+	/**
+	 * @return The only instance of this class.
+	 */
+	public static RobotCommunicator getInstance(){
+		if (me == null){
+			me = new RobotCommunicator();
+		}
+		return me;
+	}
+
+	private RobotCommunicator(){
+		try {
+			FileHandler fh = new FileHandler("rc_log.log", false);
+			fh.setFormatter(new SimpleFormatter());
+			log.addHandler(fh);
+			log.setLevel(Level.FINE);
+		} catch (SecurityException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace(); //Can't log cause logger blew up. 
+		}
+		log.log(Level.INFO, "Communicator created.");
+	}
+
 
 	/**
 	 * This method is used when moving cases within the robots/aisles. 
@@ -44,10 +78,18 @@ public class RobotCommunicator {
 	 * @return The next case to be pulled. 
 	 */
 	public Case getCase(final int the_aisle) {
-		//TODO handle initial start up with empty case in aisle
-		my_db.updatePullStatus(my_aisle_cases[the_aisle].my_case_number, DBC.BEEN_PULLED);
+		log.log(Level.FINE, "Robot #" + the_aisle +" asked for a new box.");
+		if (my_aisle_cases[the_aisle] != null){
+			my_db.updatePullStatus(my_aisle_cases[the_aisle].my_case_number, DBC.BEEN_PULLED);
+		}
 		Case box = my_server.getCase(the_aisle);
 		my_aisle_cases[the_aisle] = box;
+		if(box != null){
+			log.log(Level.FINE, "Robot #" + the_aisle +" is being sent " + box.my_case_number);
+		} else {
+			log.log(Level.FINE, "Robot #" + the_aisle +" is being sent a null case");
+		}
+
 		return box;
 	}
 

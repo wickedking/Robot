@@ -1,6 +1,5 @@
-import server.Case;
 import server.Server;
-import database.Database;
+import toRobot.RobotCommunicator;
 
 
 public class Main {
@@ -8,8 +7,9 @@ public class Main {
 	
 	public static void main(final String[] the_args){
 		Server server = Server.getInstance();
-		//server.wave();
-		System.out.println(server.toString());
+		RobotCommunicator rc = RobotCommunicator.getInstance();
+		server.wave();
+		System.out.println(rc.getCase(3));
 
 	}
 }
