@@ -1,3 +1,4 @@
+import server.Case;
 import server.Server;
 import toRobot.RobotCommunicator;
 
@@ -9,7 +10,12 @@ public class Main {
 		Server server = Server.getInstance();
 		RobotCommunicator rc = RobotCommunicator.getInstance();
 		server.wave();
-		System.out.println(rc.getCase(3));
+		Case box = rc.getCase(3);
+		while(box != null){
+			box = rc.getCase(3);
+		}
+		rc.getCase(4);
+		
 
 	}
 }

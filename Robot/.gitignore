@@ -1,3 +1,5 @@
 /bin
 /db_log.log
 /db_log
+/rc_log.log
+/server_log.log

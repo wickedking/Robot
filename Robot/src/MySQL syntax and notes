@@ -32,10 +32,10 @@ INSERT INTO location VALUES ( 'box2', -1, -1 , -1);
 INSERT INTO location VALUES ( 'box3', -1, -1 , -1);
 INSERT INTO location VALUES ( 'box4', 1, 2 , 3);
 
-INSERT INTO status VALUES ('box1', 0);
-INSERT INTO status VALUES ('box2', 0);
-INSERT INTO status VALUES ('box3', 0);
-INSERT INTO status VALUES ('box4', 2);
+INSERT INTO CaseStatus VALUES ('box1', 0);
+INSERT INTO CaseStatus VALUES ('box2', 0);
+INSERT INTO CaseStatus VALUES ('box3', 0);
+INSERT INTO CaseStatus VALUES ('box4', 2);
 
 ###########################
 Expand range of inital values into database to test out. 

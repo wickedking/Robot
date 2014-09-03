@@ -57,7 +57,6 @@ public class Database{
 			log.addHandler(fh);
 			log.setLevel(Level.FINE);
 		} catch (SecurityException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace(); //Can't log cause logger blew up. 
 		}
 		log.log(Level.INFO, "Started Database");
@@ -140,7 +139,7 @@ public class Database{
 				caseList.add(the_case);
 			} while(!rs.isLast());
 		} catch(SQLException e){
-			log.log(Level.SEVERE, e.getMessage() + "catch block"); //should log not throw...oh well for now
+			log.log(Level.SEVERE, e.getMessage()); //should log not throw...oh well for now
 		}
 		return caseList;
 	}
@@ -152,6 +151,7 @@ public class Database{
 	 * @return A boolean if successful or not.
 	 */
 	public boolean updateLocation(String the_case_number, Location the_location){
+		//TODO check sql syntax. Confirm with updatePullStatus for guide
 		log.log(Level.FINE, "Calling updateLocation: " + the_case_number);
 		PreparedStatement prestate;
 		boolean check;
@@ -181,12 +181,11 @@ public class Database{
 		PreparedStatement prestate;
 		boolean check;
 		try {
-			prestate = my_conn.prepareStatement("UPDATE 'CaseStatus' SET 'PullStatus' = "
-					+ "[" + the_pull_status + "] WHERE CaseNumber = " + the_case_number +";");
+			prestate = my_conn.prepareStatement("UPDATE CaseStatus SET PullStatus = "
+					+ "'" + the_pull_status + "' WHERE CaseNumber = '" + the_case_number +"';");
 			prestate.execute();
 			check = true;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			check = false;
 			log.log(Level.SEVERE, e.getMessage());
 		}
