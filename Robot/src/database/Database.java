@@ -125,6 +125,9 @@ public class Database{
 				
 				rs.next();
 				locationRS.next();
+				if(rs.isBeforeFirst()){
+					break;
+				}
 				String caseNumber = rs.getString(1);
 				int height = rs.getInt(2);
 				int length = rs.getInt(3);
