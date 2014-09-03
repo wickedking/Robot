@@ -56,8 +56,9 @@ public class Database{
 			log.addHandler(fh);
 		} catch (SecurityException | IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e.printStackTrace(); //Can't log cause logger blew up. 
 		}
+		log.log(Level.INFO, "Started Database");
 		my_conn = getConnection();
 	}
 
@@ -73,14 +74,13 @@ public class Database{
 
 	/**
 	 * Creates a connection to the database.
-	 * @return
+	 * @return The connection.
 	 */
 	private static Connection getConnection() {
 		log.log(Level.INFO, "Getting Connection");
 		Connection conn = null;
 		Properties connectionProps = new Properties();
 		connectionProps.put("user", DatabaseConstants.USERNAME);
-
 		if (DatabaseConstants.DBMS.equals("mysql")) {
 			try {
 				conn = DriverManager.getConnection(
@@ -141,7 +141,7 @@ public class Database{
 	 * @return A boolean if successful or not.
 	 */
 	public boolean updateLocation(String the_case_number, Location the_location){
-		log.log(Level.FINEST, "Calling updateLocation: " + the_case_number);
+		log.log(Level.FINE, "Calling updateLocation: " + the_case_number);
 		PreparedStatement prestate;
 		boolean check;
 		try {
@@ -150,7 +150,6 @@ public class Database{
 		+ "] WHERE CaseNumber = " + the_case_number +";");
 			prestate.execute();
 			check = true;
-			
 		} catch (SQLException e) {
 			check = false;
 			log.log(Level.SEVERE, e.getMessage());
@@ -172,7 +171,6 @@ public class Database{
 			prestate = my_conn.prepareStatement("UPDATE 'CaseStatus' SET 'PullStatus' = [" + the_pull_status + "] WHERE CaseNumber = " + the_case_number +";");
 			prestate.execute();
 			check = true;
-			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			check = false;

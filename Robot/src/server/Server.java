@@ -1,7 +1,11 @@
 package server;
 
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.SimpleFormatter;
 
 import database.Database;
 
@@ -16,6 +20,8 @@ public class Server {
 	private static final int ROBOT_QUANTITY = 5;
 
 	private static final int LIST_QUANTITY = 5;
+	
+	private static final java.util.logging.Logger log = java.util.logging.Logger.getLogger(Server.class.getName());
 
 	private int my_robot_number;
 
@@ -43,6 +49,15 @@ public class Server {
 	 * @param robot_number the number of robots currently being served by this program.
 	 */
 	private Server(){
+		try {
+			FileHandler fh = new FileHandler("server_log.log", false);
+			fh.setFormatter(new SimpleFormatter());
+			log.addHandler(fh);
+		} catch (SecurityException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace(); //Can't log cause logger blew up. 
+		}
+		log.log(Level.INFO, "Server Started");
 		my_robot_number = ROBOT_QUANTITY;
 		aisles = new Task[my_robot_number];
 		setupTasks();
@@ -62,6 +77,7 @@ public class Server {
 	 */
 	public boolean changeRobotNumber(int the_robot_number){
 		if(the_robot_number > 0){
+			log.log(Level.WARNING, "Number of Robots changed to: " + the_robot_number);
 			my_robot_number = the_robot_number;
 			resizeAisles();
 			return true;
@@ -78,7 +94,9 @@ public class Server {
 	 */
 	private boolean splitCases(final List<Case> the_cases){
 		//TODO refactor to better represent an error for bad case aisles.
+		log.log(Level.INFO, "Spliiting Cases");
 		if(the_cases.size() < 1){
+			log.log(Level.WARNING, "Not enough cases to split");
 			return false;
 		}
 		int aisle;
@@ -91,6 +109,7 @@ public class Server {
 			}
 			aisles[aisle].addCase(box);
 		}
+		log.log(Level.INFO, "Cases Split");
 		return check;
 	}
 
@@ -110,6 +129,7 @@ public class Server {
 	 * @return The next case in the task. Can be null.
 	 */
 	public Case getCase(final int the_aisle){
+		log.log(Level.INFO, "getCase called for: " + the_aisle);
 		return aisles[the_aisle].getCase();
 	}
 
@@ -126,6 +146,7 @@ public class Server {
 	 * Grabs new cases from the database to be pulled and splits them to the different aisles. 
 	 */
 	public void wave(){
+		log.log(Level.INFO, "Waving");
 		splitCases(my_db.getPullCases());
 	}
 	
