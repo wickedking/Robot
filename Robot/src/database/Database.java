@@ -43,9 +43,10 @@ public class Database{
 	 * Actual connection to the database.
 	 */
 	private final Connection my_conn;
-	
-	private static final java.util.logging.Logger log = java.util.logging.Logger.getLogger(Database.class.getName());
-	
+
+	private static final java.util.logging.Logger log = 
+			java.util.logging.Logger.getLogger(Database.class.getName());
+
 	/**
 	 * Cannot be directly instantiated.
 	 */
@@ -95,8 +96,8 @@ public class Database{
 		log.log(Level.INFO, "Connection Recieved");
 		return conn;
 	}
-	
-	
+
+
 	/**
 	 * Get a list of cases that are currently in pull status.
 	 * @return The list of cases to be pulled.
@@ -106,11 +107,17 @@ public class Database{
 		PreparedStatement prestate;
 		List<Case> caseList = new ArrayList<Case>();
 		try {
-			prestate = my_conn.prepareStatement("SELECT * FROM CaseInfo WHERE CaseNumber IN (SELECT CaseNumber FROM CaseStatus WHERE PullStatus = 2);");
+			prestate = my_conn.prepareStatement("SELECT * FROM " +
+					DatabaseConstants.CASEINFO + " WHERE CaseNumber IN "
+					+ "(SELECT CaseNumber FROM CaseStatus WHERE PullStatus = 2);");
 			ResultSet rs = prestate.executeQuery();
-			prestate = my_conn.prepareStatement("SELECT * FROM location WHERE CaseNumber IN (SELECT CaseNumber FROM CaseStatus WHERE PullStatus = 2);");
+			prestate = my_conn.prepareStatement("SELECT * FROM " +
+					DatabaseConstants.LOCATION + " WHERE CaseNumber IN "
+					+ "(SELECT CaseNumber FROM CaseStatus WHERE PullStatus = 2);");
 			ResultSet locationRS = prestate.executeQuery();
-			prestate = my_conn.prepareStatement("UPDATE CaseStatus SET PullStatus = " + DBC.WAVED + " WHERE PullStatus = 2;");
+			prestate = my_conn.prepareStatement("UPDATE " + DatabaseConstants.STATUS + 
+					" SET PullStatus = " + DBC.WAVED + " WHERE PullStatus = " +
+					DBC.READY_TO_BE_PULLED + ";");
 			log.log(Level.INFO, "Updating PullStatus of waved cases");
 			prestate.execute();
 			do {
@@ -123,9 +130,10 @@ public class Database{
 				int locationX = locationRS.getInt(2);
 				int locationY = locationRS.getInt(3);
 				int aisle = locationRS.getInt(4);
-				
+
 				Location locate = new Location(locationX, locationY, aisle);
-				Case the_case = new Case(caseNumber, height, length, width, locate, Units.Centimeters);
+				Case the_case = new Case(caseNumber, height, length, width,
+						locate, Units.Centimeters);
 				caseList.add(the_case);
 			} while(!rs.isLast());
 		} catch(SQLException e){
@@ -133,7 +141,7 @@ public class Database{
 		}
 		return caseList;
 	}
-	
+
 	/**
 	 * Updates the new location of a case in the DB.
 	 * @param the_case_number The case number of the case.
@@ -145,9 +153,10 @@ public class Database{
 		PreparedStatement prestate;
 		boolean check;
 		try {
-			prestate = my_conn.prepareStatement("UPDATE 'location' SET 'X'=[" + the_location.my_x +"], 'Y'=[" 
-		+ the_location.my_x + "], 'Aisle'=[" + the_location.my_aisle 
-		+ "] WHERE CaseNumber = " + the_case_number +";");
+			prestate = my_conn.prepareStatement("UPDATE " + DatabaseConstants.LOCATION + 
+					" SET 'X'=[" + the_location.my_x +"], 'Y'=[" 
+					+ the_location.my_x + "], 'Aisle'=[" + the_location.my_aisle 
+					+ "] WHERE CaseNumber = " + the_case_number +";");
 			prestate.execute();
 			check = true;
 		} catch (SQLException e) {
@@ -156,7 +165,7 @@ public class Database{
 		}
 		return check;
 	}
-	
+
 	/**
 	 * Updates the status of the case in the DB.
 	 * @param the_case_number The case number of the case.
@@ -164,11 +173,13 @@ public class Database{
 	 * @return A boolean if successful or not.
 	 */
 	public boolean updatePullStatus(String the_case_number, int the_pull_status){
-		log.log(Level.FINE, "Updating PullStatus for: " + the_case_number + " to : " + the_pull_status);
+		log.log(Level.FINE, "Updating PullStatus for: " + the_case_number +
+				" to : " + the_pull_status);
 		PreparedStatement prestate;
 		boolean check;
 		try {
-			prestate = my_conn.prepareStatement("UPDATE 'CaseStatus' SET 'PullStatus' = [" + the_pull_status + "] WHERE CaseNumber = " + the_case_number +";");
+			prestate = my_conn.prepareStatement("UPDATE 'CaseStatus' SET 'PullStatus' = "
+					+ "[" + the_pull_status + "] WHERE CaseNumber = " + the_case_number +";");
 			prestate.execute();
 			check = true;
 		} catch (SQLException e) {
@@ -177,7 +188,7 @@ public class Database{
 			log.log(Level.SEVERE, e.getMessage());
 		}
 		return check;
-		
+
 	}
 
 }

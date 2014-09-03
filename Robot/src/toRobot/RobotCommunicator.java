@@ -7,7 +7,7 @@ import database.Database;
 
 /**
  * Will send case information to specific robot, and will receive communication from same.
- * @author Cody
+ * @author Cody Shafer
  *
  */
 public class RobotCommunicator {

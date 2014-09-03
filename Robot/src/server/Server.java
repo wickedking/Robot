@@ -21,7 +21,8 @@ public class Server {
 
 	private static final int LIST_QUANTITY = 5;
 	
-	private static final java.util.logging.Logger log = java.util.logging.Logger.getLogger(Server.class.getName());
+	private static final java.util.logging.Logger log =
+			java.util.logging.Logger.getLogger(Server.class.getName());
 
 	private int my_robot_number;
 

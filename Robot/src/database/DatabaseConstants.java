@@ -4,7 +4,8 @@ package database;
  */
 
 /**
- * Constants for the database class. Was created by Mike Westbrook, and modified by Cody Shafer.
+ * Constants for the database class. Was created by Mike Westbrook,
+ *  and modified by Cody Shafer.
  * The price for this was a beer.
  * 
  * @author Mike Westbrook

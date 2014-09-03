@@ -15,7 +15,7 @@ Y Integer NOT NULL,
 Aisle Integer NOT NULL,
 CONSTRAINT CaseNumber_PK PRIMARY KEY (CaseNumber));
 
-create table status(
+create table CaseStatus(
 CaseNumber char(30) NOT NULL,
 PullStatus Integer NOT NULL,
 CONSTRAINT CaseNumber_PK PRIMARY KEY (CaseNumber));
@@ -52,4 +52,5 @@ pull Status:
 0 to be put away
 1 in location
 2 to be pulled
-3 has been pulled
+3 has been waved
+4 has been pulled
