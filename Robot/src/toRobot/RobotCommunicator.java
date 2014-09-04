@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.SimpleFormatter;
+import java.util.logging.Logger;
 
 import constants.DBC;
 import server.Case;
@@ -32,8 +33,7 @@ public class RobotCommunicator {
 	 */
 	private Server my_server = Server.getInstance();
 
-	private static final java.util.logging.Logger log =
-			java.util.logging.Logger.getLogger(RobotCommunicator.class.getName());
+	private static final Logger log = Logger.getLogger(RobotCommunicator.class.getName());
 
 	private static RobotCommunicator me;
 

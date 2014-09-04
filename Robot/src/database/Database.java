@@ -15,6 +15,7 @@ import java.util.Properties;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.SimpleFormatter;
+import java.util.logging.Logger;
 
 import constants.DBC;
 import server.Case;
@@ -44,8 +45,7 @@ public class Database{
 	 */
 	private final Connection my_conn;
 
-	private static final java.util.logging.Logger log = 
-			java.util.logging.Logger.getLogger(Database.class.getName());
+	private static final Logger log = Logger.getLogger(Database.class.getName());
 
 	/**
 	 * Cannot be directly instantiated.

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.SimpleFormatter;
+import java.util.logging.Logger;
 
 import database.Database;
 
@@ -21,8 +22,7 @@ public class Server {
 
 	private static final int LIST_QUANTITY = 5;
 	
-	private static final java.util.logging.Logger log =
-			java.util.logging.Logger.getLogger(Server.class.getName());
+	private static final Logger log = Logger.getLogger(Server.class.getName());
 
 	private int my_robot_number;
 
@@ -56,7 +56,6 @@ public class Server {
 			log.addHandler(fh);
 			log.setLevel(Level.FINE);
 		} catch (SecurityException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace(); //Can't log cause logger blew up. 
 		}
 		log.log(Level.INFO, "Server Started");
@@ -115,6 +114,11 @@ public class Server {
 		return check;
 	}
 
+	/**
+	 * @deprecated Should be redone. Kept for consistency sake.
+	 * @param the_aisle The aisle to get the case for.
+	 * @return A list of cases to be pulled. 
+	 */
 	public List<Case> getCases(final int the_aisle){
 		//TODO
 		//Check if within aisle number and send back a certain number of cases or null.
