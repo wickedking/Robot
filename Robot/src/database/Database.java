@@ -154,15 +154,14 @@ public class Database{
 	 * @return A boolean if successful or not.
 	 */
 	public boolean updateLocation(String the_case_number, Location the_location){
-		//TODO check sql syntax. Confirm with updatePullStatus for guide
 		log.log(Level.FINE, "Calling updateLocation: " + the_case_number);
 		PreparedStatement prestate;
 		boolean check;
 		try {
 			prestate = my_conn.prepareStatement("UPDATE " + DatabaseConstants.LOCATION + 
-					" SET 'X'=[" + the_location.my_x +"], 'Y'=[" 
-					+ the_location.my_x + "], 'Aisle'=[" + the_location.my_aisle 
-					+ "] WHERE CaseNumber = " + the_case_number +";");
+					" SET X=" + the_location.my_x +", Y=" 
+					+ the_location.my_x + ", Aisle=" + the_location.my_aisle 
+					+ " WHERE CaseNumber = '" + the_case_number +"';");
 			prestate.execute();
 			check = true;
 		} catch (SQLException e) {
